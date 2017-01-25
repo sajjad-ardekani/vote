@@ -1,0 +1,26 @@
+{% extends "admin.html.twig" %}
+{% block title %}{{ 'کاربزان'|trans }}{% endblock %}
+{%block toolbarTitle %}کاربران{%endblock%}
+{%block breadcrumb %} 
+    <li>
+        <i class="fa fa-dashboard"></i> کاربر
+    </li>
+    <li class="active">
+        <i class="fa fa-barcode"></i> ویرایش
+    </li>
+{%endblock%}
+{% block content %}
+    <section class="panel">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle=""></a>
+            </div>
+        </header>
+        <div class="panel-body">
+            {{form_start(form)}}
+            {{ form_widget(form) }}
+            <input type="submit" value="{{'Update'|trans }}" class="mb-xs mt-xs mr-xs btn btn-primary"/>
+            {{form_end(form)}}
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,49 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.thumbnail:
+        class: AppBundle\Model\Thumbnail
+        arguments: ["@service_container"]
+    app_role:
+        class: AppBundle\Entity\User\Role
+        arguments: ['%security.role_hierarchy.roles%']
+        
+    app.form.registration:
+        class: AppBundle\Form\User\RegistrationFormType
+        arguments: ['%fos_user.model.user.class%', '@app_role']
+        tags:
+             - { name: form.type, alias: app_user_registration }  
+             
+    app.form.user.edit:
+        class: AppBundle\Form\User\EditUserFormType
+        arguments: ['%fos_user.model.user.class%', '@app_role']
+        tags:
+             - { name: form.type, alias: app_user_registration }  
+             
+    app.form.user.profile.update:
+        class: AppBundle\Form\User\ProfileFormType
+        arguments: ['%fos_user.model.user.class%']
+        tags:
+             - { name: form.type, alias: fos_user_profile }  
+    app.authentication.success_handler:
+        class:  AppBundle\Security\Authentication\LoginSuccessHandler
+        arguments:  ['@security.http_utils', {}, "@service_container"]
+        calls:
+            - [ setEM, [ '@doctrine.orm.entity_manager' ]]         
+#    app_user.registration_success:
+#        class: AppBundle\EventListener\RegistrationSuccessListener
+#        arguments: [@router]
+#        tags:
+#            - { name: kernel.event_subscriber }             
+    #### twig        
+    app.twig_extension:
+        class: AppBundle\Twig\AppExtension
+        arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }             

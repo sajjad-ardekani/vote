@@ -1,0 +1,69 @@
+{% extends 'admin.html.twig' %}
+{% block title %}{{ 'سوال'|trans }}{% endblock %}
+{%block toolbarTitle %}سوال{%endblock%}
+{%block breadcrumb %} 
+    <li class="active">
+        <i class="fa fa-barcode"></i> سوال
+    </li>
+{%endblock%}
+{% block content %}
+
+    <form id="pf" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="appbundle_question_text" class="col-xs-1 control-label required">سوال</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" maxlength="255" required="required" name="appbundle_question" id="appbundle_question_text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-1 control-label">{{'جواب ها' | trans }}</label>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" name='p[0]' placeholder="جواب" />
+            </div>
+            <div class="col-xs-1">
+                <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+
+        <!-- The template for adding new field -->
+        <div class="form-group hide" id="pt">
+            <div class="col-xs-4 col-xs-offset-1">
+                <input type="text" class="form-control" name="pid" placeholder="جواب" />
+            </div>
+            <div class="col-xs-1">
+                <button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+
+        <div class="form-group" id="phid1">
+            <div class="col-xs-5 col-xs-offset-1">
+                <button type="submit" class="btn btn-default">{{'ثبت' | trans}}</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script>
+        var bookIndex = 0;
+        $('#pf')
+                // Add button click handler
+                .on('click', '.addButton', function () {
+                    bookIndex++;
+                    var $template = $('#pt'),
+                            $clone = $template
+                            .clone()
+                            .removeClass('hide')
+                            .removeAttr('id')
+                            .attr('data-book-index', bookIndex)
+                            .insertBefore($template);
+                    $clone
+                            .find('[name="pid"]').attr('name', 'p[' + bookIndex + ']').end();
+                })
+                .on('click', '.removeButton', function () {
+                    var $row = $(this).parents('.form-group');
+                    $row.remove();
+                });
+    </script>
+{% endblock %}   

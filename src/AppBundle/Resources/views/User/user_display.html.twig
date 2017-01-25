@@ -1,0 +1,88 @@
+{% extends "admin.html.twig" %}
+
+{% block title %}{{ 'کاربران'|trans }}{% endblock %}
+{%block toolbarTitle %}کاربران{%endblock%}
+{%block breadcrumb %} 
+    <li>
+        <i class="fa fa-dashboard"></i> کاربر
+    </li>
+    <li class="active">
+        <i class="fa fa-barcode"></i> نمایش
+    </li>
+{%endblock%}
+{% block content %}
+    <div>
+        <!-- start: page -->
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a data-panel-toggle="" class="panel-action panel-action-toggle" href="#"></a>
+                    <a data-panel-dismiss="" class="panel-action panel-action-dismiss" href="#"></a>
+                </div>
+                {{ knp_pagination_render(users) }}
+            </header>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-md">
+                            <a class="btn btn-primary" id="addToTable" href="{{path("fos_user_registration_register")}}">
+                                <i class="fa fa-plus"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="datatable-editable_wrapper" class="dataTables_wrapper no-footer">
+
+
+                    <div class="table-responsive">
+
+                        <table id="datatable-editable" class="table table-bordered table-striped mb-none dataTable no-footer" role="grid" aria-describedby="datatable-editable_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 226px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">#{{'شناسه'|trans}}</th>
+                                    <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 290px;" aria-label="Browser: activate to sort column ascending">{{ 'نام کاربری'|trans }}</th>
+                                    <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 290px;" aria-label="Browser: activate to sort column ascending">{{ 'ایمیل'|trans }}</th>
+                                    <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 290px;" aria-label="Browser: activate to sort column ascending">{{ 'نقش'|trans }}</th>
+{#                                    <th class="sorting" tabindex="0" aria-controls="datatable-editable" rowspan="1" colspan="1" style="width: 272px;" aria-label="Platform(s): activate to sort column ascending">{{ 'گروه'|trans }}</th>#}
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 105px;" aria-label="Actions">{{ 'اقدامات'|trans }}</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {%for user in users %}
+                                    <tr class="gradeA odd" role="row">
+                                        <td class="sorting_1">{{user.id}}</td>
+                                        <td>{{user.username}}</td>
+                                        <td>{{user.email}}</td>
+                                        <td>
+                                           
+                                            {% for role in user.roles %}
+                                                {{ role|trans }} -
+                                            {% endfor %}
+
+                                        </td>
+                                  {#      <td>
+
+                                            {% for group in user.groups %}
+                                                {{ group.name }}
+                                            {% endfor %}
+
+                                        </td>#}
+                                        <td class="actions">
+                                            <a class="on-default edit-row" href="{{path("app_user_update",{"id":user.id})}}"><i class="fa fa-pencil"></i></a>
+                                                {#                                            <a class="on-default remove-row" href="{{path("app_palette_delete",{"id":user.id})}}"><i class="fa fa-trash-o"></i></a>#}
+                                        </td>
+                                    </tr>
+                                {%endfor%}
+                            </tbody>
+                        </table></div>
+
+
+                    <div class="dataTables_paginate paging_bs_normal" id="datatable-editable_paginate">
+                        {{ knp_pagination_render(users) }}
+                    </div>
+                    </section>   
+                </div>
+
+            {% endblock %}

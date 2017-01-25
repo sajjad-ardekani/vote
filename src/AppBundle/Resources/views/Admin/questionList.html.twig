@@ -1,0 +1,43 @@
+{% extends 'admin.html.twig' %}
+{% block title %}{{ 'سوال'|trans }}{% endblock %}
+{%block toolbarTitle %}سوالات{%endblock%}
+{%block breadcrumb %} 
+    <li class="active">
+        <i class="fa fa-barcode"></i> سوال و جواب ها
+    </li>
+{%endblock%}
+{% block content %}
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel-group" id="accordion">
+                {%for key,question in questions%}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{key}}">{{question.text}}</a>
+                                <div class="pull-left">
+                                    <a href="{{path("app_question_edit",{'id': question.id})}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                    <a href="{{path("app_question_delete",{'id': question.id})}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                </div>
+                            </h4>
+                        </div>
+                        <div id="collapse{{key}}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <ul>
+                                    {%for answer in question.questionAnswers%}
+                                        <li>{{answer.text}}</li>
+                                        {%endfor%}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                {%endfor%}
+            </div>
+            <!-- /.panel-group -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+{% endblock %}

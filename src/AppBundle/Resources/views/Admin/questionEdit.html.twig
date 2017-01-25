@@ -1,0 +1,25 @@
+{% extends 'admin.html.twig' %}
+{% block title %}{{ 'جواب ها'|trans }}{% endblock %}
+{%block toolbarTitle %}جواب ها{%endblock%}
+{%block breadcrumb %} 
+    <li class="active">
+        <i class="fa fa-barcode"></i> جواب ها
+    </li>
+{%endblock%}
+{% block content %}
+    {{form_start(form)}}
+    {{form_row(form.text)}}
+    {{form_row(form.questionAnswers, { 'attr': {'class':'typeahead'} }) }}
+    {{form_end(form)}}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{asset('assets/vendor/select2/css/select2.min.css')}}" />
+{%endblock%}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{asset('assets/vendor/select2/js/select2.full.min.js')}}"></script> 
+    <script>
+        $('.typeahead').select2();
+    </script>
+{% endblock %}

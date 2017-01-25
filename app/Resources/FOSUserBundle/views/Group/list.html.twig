@@ -1,0 +1,17 @@
+{% extends "admin.html.twig" %}
+
+{% block content %}
+    <section class="panel"  style='margin-top: 50px;'>
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a data-panel-toggle="" class="panel-action panel-action-toggle" href="#"></a>
+                <a data-panel-dismiss="" class="panel-action panel-action-dismiss" href="#"></a>
+            </div>
+        </header>
+        <div class="panel-body">
+            <a href="{{path('fos_user_group_new')}}" class="btn btn-success">{{'panel.add' | trans}}</a>
+            <hr />
+            {% include "FOSUserBundle:Group:list_content.html.twig" %}
+        </div>
+    </section>
+{% endblock content %}

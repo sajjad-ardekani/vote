@@ -1,0 +1,20 @@
+.panel{
+background-color: rgb(239,255,220);
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: transparent;
+  /*width: ;*/
+  /*border: 1px #000;*/
+}
+.table{
+/*    background-color: rgb(239,255,213);*/
+    background-color: rgb(222,255,250);
+}
+.table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th
+{
+    border: 1px solid #666;
+    
+}
+.table tr{
+   text-align: center;
+}
